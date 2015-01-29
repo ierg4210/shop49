@@ -1,0 +1,30 @@
+{
+  "name": "shop49-ierg4210",
+  "version": "1.0.0",
+  "description": "IERG4210 Shop49",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ierg4210/shop49.git"
+  },
+  "keywords": [
+    "education",
+    "CUHK",
+    "ierg4210",
+    "web",
+    "programming",
+    "and",
+    "security",
+    "assignment",
+    "ecommerce"
+  ],
+  "author": "wlchong2",
+  "license": "BSD",
+  "bugs": {
+    "url": "https://github.com/ierg4210/shop49/issues"
+  },
+  "homepage": "https://github.com/ierg4210/shop49"
+}
