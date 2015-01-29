@@ -1,7 +1,14 @@
-var http = require("http");
+var express = require('express')
+var app = express()
 
-http.createServer(function(request, response) {
-  response.writeHead(200, {"Content-Type": "text/plain"});
-  response.write("Helio World");
-  response.end();
-}).listen(process.env.PORT || 3000);
+app.use(express.static(__dirname+'/public'));
+app.get('/', function (req,res) {
+	res.sendFile(__dirname+'/public/main.html');
+})
+
+var server = app.listen(3000, function() {
+	var host = server.address().address
+	var port = server.address().port
+	console.log('Running at %s:%s', host ,port);
+})
+
