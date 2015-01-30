@@ -1,2 +1,3 @@
 # shop49
-Main page = main.html
+npm install,
+node app.js
