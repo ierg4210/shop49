@@ -9,6 +9,7 @@ app.engine('handlebars', exphbs({defaultLayout: 'main'}));
 app.set('view engine', 'handlebars');
 app.use(express.static(__dirname+'/public'));
 app.use('/',mainRouter);
+app.use('/admin',adminRouter);
 
 var server = app.listen(process.env.PORT||80, function() {
 	var host = server.address().address;
