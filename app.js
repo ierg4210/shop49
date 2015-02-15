@@ -3,7 +3,6 @@ var app = express();
 var exphbs  = require('express-handlebars');
 var mainRouter = require('./routes/main.js')
 var adminRouter = require('./routes/admin.js')
-var anyDB = require('any-db');
 
 
 app.engine('handlebars', exphbs({defaultLayout: 'main'}));
