@@ -42,7 +42,7 @@ router.use(expressValidator());
 
 
 // URL expected: http://hostname/admin/api/cat/add
-router.post('/cat/add', function (req, res) {
+router.post('/api/cat/add', function (req, res) {
 
 	// put your input validations and/or sanitizations here
 	// Reference: https://www.npmjs.com/package/express-validator
@@ -75,7 +75,7 @@ router.post('/cat/add', function (req, res) {
 });
 
 // URL expected: http://hostname/admin-api/cat/add
-router.post('/cat/edit', function (req, res) {
+router.post('/api/cat/edit', function (req, res) {
 
 	// put your input validations and/or sanitizations here
 	// Reference: https://www.npmjs.com/package/express-validator
