@@ -29,6 +29,7 @@
   "homepage": "https://github.com/ierg4210/shop49",
   "dependencies": {
     "any-db-mysql": "^2.1.2",
+    "body-parser": "^1.12.0",
     "express": "^4.11.1",
     "express-handlebars": "^1.1.0",
     "express-validator": "^2.8.0",
