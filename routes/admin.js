@@ -19,7 +19,7 @@ router.get('/', function (req, res) {
 				res.status(500).end();
 				return;
 			}
-		res.render('admin-panel', {
+		res.render('admin', {
 			layout: 'admin',
 			title: 'IERG4210 Shop49 Admin',
 			cat: categories.rows,
