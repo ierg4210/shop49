@@ -28,8 +28,12 @@
   },
   "homepage": "https://github.com/ierg4210/shop49",
   "dependencies": {
+    "any-db-mysql": "^2.1.2",
     "express": "^4.11.1",
-    "express-handlebars": "^1.1.0"
+    "express-handlebars": "^1.1.0",
+    "mysql": "^2.5.4"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "supervisor": "^0.6.0"
+  }
 }
