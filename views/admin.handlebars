@@ -30,6 +30,17 @@
 
 	<fieldset id="categoryRemovePanel">
 		<legend>Remove a Category</legend>
+		<form method="POST" action="/admin/api/cat/delete">
+			<label for="catEditCatId">Category *</label>
+			<select id="catEditCatId" name="catid" required>
+				<option value="">Please select a category</option>
+			{{#each cat}}
+				<option value="{{catid}}">{{name}}</option>
+			{{/each}}
+			
+
+			<input type="submit" value="Remove" />
+		</form>
 	</fieldset>
 </section>
 
@@ -71,15 +82,7 @@
 				<div>
 					<select id="prodEditPId" name="pid" required>
 						<option value="">Please select a product</option>
-					\{{#each prod}}
-						<option value="{{pid}}">{{name}}</option>
-					\{{/each}}
-					</select>
-				</div>
-				<div>
-					<select id="prodEditPId" name="pid" required>
-						<option value="">Please select a product</option>
-					{{#each lel}}
+					{{#each prod}}
 						<option value="{{pid}}">{{name}}</option>
 					{{/each}}
 					</select>
