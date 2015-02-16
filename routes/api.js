@@ -19,6 +19,31 @@ app.use(expressValidator());
 
 
 // URL expected: http://hostname/admin/api/cat/add
+app.get('/cat/:catid', function (req, res) {
+
+		req.checkBody('catid', 'Invalid Category ID')
+		.notEmpty()
+		.isInt();
+
+	var errors = req.validationErrors();
+	if (errors) {
+		return res.status(400).json({'inputError': errors}).end()
+;	}
+
+		pool.query('SELECT name FROM categories WHERE (cid)=(?) LIMIT 1', 
+		[catid],(
+		function (error, result) {
+			if (error) {
+				console.error(error);
+				return res.status(500).json({'dbError': 'check server log'}).end();
+			}
+
+			res.status(200).json(result).end();
+		}
+	);
+
+});
+
 app.post('/cat/add', function (req, res) {
 
 	// put your input validations and/or sanitizations here
@@ -127,7 +152,7 @@ app.post('/cat/delete', function (req, res) {
 });
 
 
-app.post('/pro/add', function (req, res) {
+app.post('/prod/add', function (req, res) {
 
 	// put your input validations and/or sanitizations here
 	// Reference: https://www.npmjs.com/package/express-validator
@@ -160,7 +185,7 @@ app.post('/pro/add', function (req, res) {
 });
 
 // URL expected: http://hostname/admin-api/cat/add
-app.post('/pro/edit', function (req, res) {
+app.post('/prod/edit', function (req, res) {
 
 	// put your input validations and/or sanitizations here
 	// Reference: https://www.npmjs.com/package/express-validator
@@ -202,7 +227,7 @@ app.post('/pro/edit', function (req, res) {
 	);
 });
 
-app.post('/pro/delete', function (req, res) {
+app.post('/prod/delete', function (req, res) {
 
 	// put your input validations and/or sanitizations here
 	// Reference: https://www.npmjs.com/package/express-validator
