@@ -30,7 +30,7 @@ app.get('/cat/:catid', function (req, res) {
 		return res.status(400).json({'inputError': errors}).end()
 ;	}
 
-	pool.query('SELECT name FROM categories WHERE (cid)=(?) LIMIT 1', 
+	pool.query('SELECT name FROM categories WHERE (catid)=(?) LIMIT 1', 
 		[catid],
 		function (error, result) {
 			if (error) {
