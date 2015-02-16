@@ -38,7 +38,7 @@ app.get('/cat/:catid', function (req, res) {
 				return res.status(500).json({'dbError': 'check server log'}).end();
 			}
 
-			res.status(200).result.rows.end();
+			res.status(200).json(result.rows[0]).end();
 		}
 	);
 
@@ -151,6 +151,30 @@ app.post('/cat/delete', function (req, res) {
 
 });
 
+app.get('/prod/:pid', function (req, res) {
+
+		req.checkParams('pid', 'Invalid Category ID')
+		.notEmpty()
+		.isInt();
+		var pid = req.params.pid;
+	var errors = req.validationErrors();
+	if (errors) {
+		return res.status(400).json({'inputError': errors}).end()
+;	}
+
+	pool.query('SELECT * FROM products WHERE (pid)=(?) LIMIT 1', 
+		[pid],
+		function (error, result) {
+			if (error) {
+				console.error(error);
+				return res.status(500).json({'dbError': 'check server log'}).end();
+			}
+
+			res.status(200).json(result.rows[0]).end();
+		}
+	);
+
+});
 
 app.post('/prod/add', function (req, res) {
 

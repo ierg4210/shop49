@@ -39,8 +39,30 @@ function onSubmitHandler(e) {
 		});
 }
 
+function onCatEditHandler(e){
+	console.log("wow");
+		superagent
+		.get('./admin/api/cat/'+this.value)
+		.end(function (res) {
+			if (res.error) {
+				if (res.body.inputErrors) {
+					res.body.inputErrors.forEach(function(input){
+						alert(input.msg);
+					});
+				}
+				return console.error(res.body.inputError || res.error);
+			}
+
+			document.querySelector('#catEditName').value=res.body.name;
+			// refresh the page with latest results
+			
+		});
+}
+
 document.querySelector('#categoryNewPanel form').addEventListener('submit', onSubmitHandler);
 document.querySelector('#categoryEditPanel form').addEventListener('submit', onSubmitHandler);
+document.querySelector('#categoryRemovePanel form').addEventListener('submit', onSubmitHandler);
+document.querySelector('#catEditCatId').addEventListener('change', onCatEditHandler);
 
 
 })();

@@ -4,7 +4,7 @@ var config = require('../shop49.config.js');
 var anyDB = require('any-db');
 var bodyParser = require('body-parser');
 var expressValidator = require('express-validator');
-var pool = anyDB.createPool("mysql://shop49-admin:01020304@aaa1nzh6y3zqur.cftehalxuulr.ap-southeast-1.rds.amazonaws.com/shop49",{
+var pool = anyDB.createPool(config.dbURI,{
 	min:2, max:20
 });
 

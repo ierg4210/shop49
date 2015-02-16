@@ -31,8 +31,8 @@
 	<fieldset id="categoryRemovePanel">
 		<legend>Remove a Category</legend>
 		<form method="POST" action="/admin/api/cat/delete">
-			<label for="catEditCatId">Category *</label>
-			<select id="catEditCatId" name="catid" required>
+			<label for="catRemoveCatId">Category *</label>
+			<select id="catRemoveCatId" name="catid" required>
 				<option value="">Please select a category</option>
 			{{#each cat}}
 				<option value="{{catid}}">{{name}}</option>
@@ -50,7 +50,7 @@
 		<form method="POST" action="/admin/api/prod/add" enctype="multipart/form-data">
 			<label for="prodNewCatId">Category *</label>
 			<div>
-				<select id="catEditCatId" name="catid" required>
+				<select id="catNewPCatId" name="catid" required>
 					<option value="">Please select a category</option>
 				{{#each cat}}
 					<option value="{{catid}}">{{name}}</option>
@@ -88,6 +88,15 @@
 					</select>
 				</div>
 
+			<label for="prodNewCatId">Category *</label>
+			<div>
+				<select id="catEditPCatId" name="catid" required>
+					<option value="">Please select a category</option>
+				{{#each cat}}
+					<option value="{{catid}}">{{name}}</option>
+				{{/each}}
+				</select>
+			</div>
 
 
 			<label for="prodEditName">Name *</label>
@@ -100,7 +109,9 @@
 			<div><textarea id="prodEditDescription" name="description" pattern="^[\w- ',\r\n]+$"></textarea></div>
 
 			<label for="prodEditImage">Image *</label>
-			<div><input id="prodEditImage" type="file" name="file" required /></div>
+			<div>
+			<img src/>
+			<input id="prodEditImage" type="file" name="file" required /></div>
 
 			<input type="submit" value="Submit" />
 		</form>
@@ -112,7 +123,10 @@
 		<fieldset>
 			<legend>Remove a Product</legend>
 			<form method="POST" action="/admin/api/prod/remove">
-
+				{{#each prod}}
+						<option value="{{pid}}">{{name}}</option>
+				{{/each}}
+				<input type="submit" value="Submit" />
 			</form>
 		</fieldset>
 	</section>
