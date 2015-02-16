@@ -38,7 +38,7 @@ app.get('/cat/:catid', function (req, res) {
 				return res.status(500).json({'dbError': 'check server log'}).end();
 			}
 
-			res.status(200).json(result).end();
+			res.status(200).json(result.rows).end();
 		}
 	);
 
