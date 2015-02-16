@@ -24,7 +24,7 @@ app.get('/cat/:catid', function (req, res) {
 		req.checkParams('catid', 'Invalid Category ID')
 		.notEmpty()
 		.isInt();
-
+		var catid = req.params.catid;
 	var errors = req.validationErrors();
 	if (errors) {
 		return res.status(400).json({'inputError': errors}).end()
