@@ -40,9 +40,8 @@ function onSubmitHandler(e) {
 }
 
 function onCatEditHandler(e){
-	console.log("wow");
 		superagent
-		.get('./admin/api/cat/'+this.value)
+		.get('/admin/api/cat/'+this.value)
 		.end(function (res) {
 			if (res.error) {
 				if (res.body.inputErrors) {
@@ -53,16 +52,46 @@ function onCatEditHandler(e){
 				return console.error(res.body.inputError || res.error);
 			}
 
-			document.querySelector('#catEditName').value=res.body.name;
+			document.getElementById('catEditName').value=res.body.name;
 			// refresh the page with latest results
 			
 		});
 }
 
+function onPIdEditHandler(e){
+	console.log("wow");
+		superagent
+		.get('/admin/api/prod/'+this.value)
+		.end(function (res) {
+			if (res.error) {
+				if (res.body.inputErrors) {
+					res.body.inputErrors.forEach(function(input){
+						alert(input.msg);
+					});
+				}
+				return console.error(res.body.inputError || res.error);
+			}
+			console.log(res.body);
+			document.querySelector('#catEditPCatId [value="' + res.body.catid + '"]').selected = true;
+			document.getElementById('prodEditName').value=res.body.name;
+			document.getElementById('prodEditPrice').value=res.body.price;
+			if (res.body.description){
+				document.getElementById('prodEditDescription').value=res.body.description;}
+			else {
+				document.getElementById('prodEditDescription').value="";}
+			document.getElementById("prodEditOriImage").src='/images/products/'+res.body.pid;
+			// refresh the page with latest results
+			
+		});
+}
 document.querySelector('#categoryNewPanel form').addEventListener('submit', onSubmitHandler);
 document.querySelector('#categoryEditPanel form').addEventListener('submit', onSubmitHandler);
 document.querySelector('#categoryRemovePanel form').addEventListener('submit', onSubmitHandler);
-document.querySelector('#catEditCatId').addEventListener('change', onCatEditHandler);
+//document.querySelector('#productNewPanel form').addEventListener('submit', onSubmitHandler);
+//document.querySelector('#productEditPanel form').addEventListener('submit', onSubmitHandler);
+document.querySelector('#productRemovePanel form').addEventListener('submit', onSubmitHandler);
+document.getElementById('catEditCatId').addEventListener('change', onCatEditHandler);
+document.getElementById('prodEditPId').addEventListener('change', onPIdEditHandler);
 
 
 })();

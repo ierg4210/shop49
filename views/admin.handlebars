@@ -45,7 +45,7 @@
 </section>
 
 <section id="productPanel" class="panel">
-	<fieldset>
+	<fieldset id="productNewPanel">
 		<legend>New Product</legend>
 		<form method="POST" action="/admin/api/prod/add" enctype="multipart/form-data">
 			<label for="prodNewCatId">Category *</label>
@@ -74,8 +74,8 @@
 		</form>
 	</fieldset>
 	
-	<section id="productEditPanel">
-		<fieldset>
+	<section>
+		<fieldset id="productEditPanel">
 			<legend>Edit a Product</legend>
 			<form method="POST" action="/admin/api/prod/edit" enctype="multipart/form-data">
 				<label for="prodEditPId">Product *</label>
@@ -110,7 +110,7 @@
 
 			<label for="prodEditImage">Image *</label>
 			<div>
-			<img src/>
+			<img id="prodEditOriImage" src/>
 			<input id="prodEditImage" type="file" name="file" required /></div>
 
 			<input type="submit" value="Submit" />
@@ -119,13 +119,19 @@
 		</fieldset>
 	</section>
 	
-	<section id="productRemovePanel">
-		<fieldset>
+	<section>
+		<fieldset id="productRemovePanel">
 			<legend>Remove a Product</legend>
 			<form method="POST" action="/admin/api/prod/remove">
-				{{#each prod}}
+				<label for="prodRemovePId">Product *</label>
+				<div>
+					<select id="prodRemovePId" name="pid" required>
+						<option value="">Please select a product</option>
+					{{#each prod}}
 						<option value="{{pid}}">{{name}}</option>
-				{{/each}}
+					{{/each}}
+					</select>
+				</div>
 				<input type="submit" value="Submit" />
 			</form>
 		</fieldset>
