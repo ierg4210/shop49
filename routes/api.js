@@ -21,7 +21,7 @@ app.use(expressValidator());
 // URL expected: http://hostname/admin/api/cat/add
 app.get('/cat/:catid', function (req, res) {
 
-		req.checkBody('catid', 'Invalid Category ID')
+		req.checkParams('catid', 'Invalid Category ID')
 		.notEmpty()
 		.isInt();
 
