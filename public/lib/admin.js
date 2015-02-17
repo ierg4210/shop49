@@ -70,7 +70,7 @@ function onPIdEditHandler(e){
 				}
 				return console.error(res.body.inputError || res.error);
 			}
-			document.querySelector('#catEditPCatId [value="' + res.body.catid + '"]').selected = true;
+			document.querySelector('#prodEditPCatId [value="' + res.body.catid + '"]').selected = true;
 			document.getElementById('prodEditName').value=res.body.name;
 			document.getElementById('prodEditPrice').value=res.body.price;
 			if (res.body.description){
