@@ -2,7 +2,7 @@
 <section id="product_list"><ul>
 	
 	{{#each prod}}
-		<li class="product_box"><a href="/product/{{pid}}"><img src="/images/products/{{pid}}"><div class="product_name">{{name}}</div></a>
+		<li class="product_box"><a href="/product/{{pid}}"><img src="/images/products/{{pid}}"><div class="product_name">{{name}}</div></a><div>${{price}} <button>Add</button></div>
 	{{/each}}
 
 
