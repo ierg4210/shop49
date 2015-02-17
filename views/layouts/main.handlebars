@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>IERG4210</title>
-<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
 <header>
@@ -21,8 +21,9 @@
 </ul>
 </section>
 <section id="category_list"><ul>
-	<a href="main"><li>c1</li></a>
-	<a href="main"><li>c2</li></a>
+	{{#each cat}}
+				<a href="/cat/{{catid}}"><li>{{name}}</li></a>
+	{{/each}}
 </ul></section>
 
 <div id="right">
