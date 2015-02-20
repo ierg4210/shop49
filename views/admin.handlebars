@@ -88,9 +88,9 @@
 					</select>
 				</div>
 
-			<label for="prodNewCatId">Category *</label>
+			<label for="prodEditCatId">Category *</label>
 			<div>
-				<select id="prodEditPCatId" name="catid" required>
+				<select id="catEditPCatId" name="catid" required>
 					<option value="">Please select a category</option>
 				{{#each cat}}
 					<option value="{{catid}}">{{name}}</option>
@@ -111,7 +111,7 @@
 			<label for="prodEditImage">Image *</label>
 			<div>
 			<img id="prodEditOriImage" src/>
-			<input id="prodEditImage" type="file" name="file" required /></div>
+			<input id="prodEditImage" type="file" name="file" /></div>
 
 			<input type="submit" value="Submit" />
 		</form>

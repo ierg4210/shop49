@@ -39,6 +39,8 @@ function onSubmitHandler(e) {
 		});
 }
 
+
+
 function onCatEditHandler(e){
 		superagent
 		.get('/admin/api/cat/'+this.value)

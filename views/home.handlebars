@@ -1,8 +1,8 @@
-<nav><a href="main">Home</a> > <a href=/cat/{catid}}>{{name}}</a></nav>
+<nav><a href="/">Home</a> > <a href=/cat/{{catid}}>{{name}}</a></nav>
 <section id="product_list"><ul>
 	
 	{{#each prod}}
-		<li class="product_box"><a href="/product/{{pid}}"><img src="/images/products/{{pid}}"><div class="product_name">{{name}}</div></a><div>${{price}} <button>Add</button></div>
+		<li class="product_box"><a href="/product/{{pid}}"><img src="/images/products/{{pid}}"><div class="product_name">{{name}}</div></a><div>${{price}} <button class="addCart" id="{{pid}}">Add</button></div>
 	{{/each}}
 
 

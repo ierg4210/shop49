@@ -198,7 +198,7 @@ app.post('/prod/add', function (req, res) {
 		return res.status(400).json({'inputError': errors}).end();	
 	}
 
-	if (!req.files){
+	if (!req.files.file){
 		return res.status(400).json({'inputError': 'Invalid image'}).end();	
 	}
 	// manipulate the DB accordingly using prepared statement 
