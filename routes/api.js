@@ -1,26 +1,41 @@
 var fs=require('fs');
 var express = require('express');
-var multer  = require('multer')
+var session = require('express-session')
 var anyDB = require('any-db');
 var config = require('../shop49.config.js');
-var bodyParser = require('body-parser');
-var expressValidator = require('express-validator');
 var pool = anyDB.createPool(config.dbURI, {
 	min: 2, max: 20
 });
 var inputPattern = {
 	name: /^[\w- ']+$/,
 };
-var app = express.Router();
-// for parsing application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({extended:true}));
-// this line must be immediately after express.bodyParser()!
-// Reference: https://www.npmjs.com/package/express-validator
-app.use(expressValidator());
-app.use(multer({ dest: './public/images/products/'}));
+var router = express.Router();
+
+router.get('/', function (req, res) {
+	pool.query('SELECT * FROM categories', function (error, categories) {
+		if (error) {
+			console.error(error);
+			res.status(500).end();
+			return;
+		}
+		pool.query('SELECT * FROM products', function (error, products) {
+			if (error) {
+				console.error(error);
+				res.status(500).end();
+				return;
+			}
+		res.render('admin', {
+			layout: 'admin',
+			title: 'IERG4210 Shop49 Admin',
+			cat: categories.rows,
+			prod: products.rows
+			});
+		});
+	});
+});
 
 // URL expected: http://hostname/admin/api/cat/add
-app.get('/cat/:catid', function (req, res) {
+router.get('/api/cat/:catid', function (req, res) {
 
 		req.checkParams('catid', 'Invalid Category ID')
 		.notEmpty()
@@ -45,7 +60,7 @@ app.get('/cat/:catid', function (req, res) {
 
 });
 
-app.post('/cat/add', function (req, res) {
+router.post('/api/cat/add', function (req, res) {
 
 	// put your input validations and/or sanitizations here
 	// Reference: https://www.npmjs.com/package/express-validator
@@ -78,7 +93,7 @@ app.post('/cat/add', function (req, res) {
 });
 
 // URL expected: http://hostname/admin-api/cat/add
-app.post('/cat/edit', function (req, res) {
+router.post('/api/cat/edit', function (req, res) {
 
 	// put your input validations and/or sanitizations here
 	// Reference: https://www.npmjs.com/package/express-validator
@@ -120,7 +135,7 @@ app.post('/cat/edit', function (req, res) {
 	);
 });
 
-app.post('/cat/delete', function (req, res) {
+router.post('/api/cat/delete', function (req, res) {
 
 	// put your input validations and/or sanitizations here
 	// Reference: https://www.npmjs.com/package/express-validator
@@ -152,7 +167,7 @@ app.post('/cat/delete', function (req, res) {
 
 });
 
-app.get('/prod/:pid', function (req, res) {
+router.get('/api/prod/:pid', function (req, res) {
 
 		req.checkParams('pid', 'Invalid Category ID')
 		.notEmpty()
@@ -177,7 +192,7 @@ app.get('/prod/:pid', function (req, res) {
 
 });
 
-app.post('/prod/add', function (req, res) {
+router.post('/api/prod/add', function (req, res) {
 
 	// put your input validations and/or sanitizations here
 	// Reference: https://www.npmjs.com/package/express-validator
@@ -236,7 +251,7 @@ app.post('/prod/add', function (req, res) {
 
 
 // URL expected: http://hostname/admin-api/cat/add
-app.post('/prod/edit', function (req, res) {
+router.post('/api/prod/edit', function (req, res) {
 
 	// put your input validations and/or sanitizations here
 	// Reference: https://www.npmjs.com/package/express-validator
@@ -305,7 +320,7 @@ app.post('/prod/edit', function (req, res) {
 	);
 });
 
-app.post('/prod/remove', function (req, res) {
+router.post('/api/prod/remove', function (req, res) {
 
 	// put your input validations and/or sanitizations here
 	// Reference: https://www.npmjs.com/package/express-validator
@@ -338,4 +353,4 @@ app.post('/prod/remove', function (req, res) {
 });
 
 
-module.exports = app;
+module.exports = router;

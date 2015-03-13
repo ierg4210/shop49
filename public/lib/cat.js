@@ -29,7 +29,7 @@ $(document).ready(function(){
 	    		}
 	    	})
 	    	if (exist==false){
-	    		$.get('/admin/api/prod/'+pid, function(data){
+	    		$.get('/prod/'+pid, function(data){
 	    			items.push({pid:pid, quantity:quantity, name:data.name, price:data.price});
 	    			localStorage.setItem('items', JSON.stringify(items));
 		   			update();
