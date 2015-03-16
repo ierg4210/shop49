@@ -4,7 +4,7 @@ var session = require('express-session');
 var bodyParser = require('body-parser');
 var expressValidator = require('express-validator');
 var multer  = require('multer');
-var exphbs  = require('express-handlebars');
+var exphbs  = require('express-secure-handlebars');
 var mainRouter = require('./routes/main.js');
 var adminRouter = require('./routes/admin.js');
 var apiRouter = require('./routes/api.js');
@@ -18,6 +18,10 @@ app.use(session({
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(expressValidator());
 app.use(multer({ dest: './public/images/products/'}));
+app.use(function(req, res, next){
+    res.header("Content-Security-Policy", "default-src 'self';script-src 'self';object-src 'none';img-src 'self';media-src 'self';frame-src 'none';font-src 'self' data:;connect-src 'self';style-src 'self'");
+    next();
+});
 app.use(express.static(__dirname+'/public'));
 app.use('/',mainRouter);
 app.use('/admin',adminRouter);

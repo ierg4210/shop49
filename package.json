@@ -38,7 +38,8 @@
     "install": "^0.1.8",
     "multer": "^0.1.7",
     "mysql": "^2.5.4",
-    "npm": "^2.7.0"
+    "npm": "^2.7.0",
+    "express-secure-handlebars": "~1.0.4"
   },
   "devDependencies": {
     "supervisor": "^0.6.0"
