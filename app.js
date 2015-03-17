@@ -20,8 +20,8 @@ app.use(session({
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(expressValidator());
 app.use(cookieParser());
-app.use(csrf({ cookie: true }));
 app.use(multer({ dest: './public/images/products/'}));
+app.use(csrf({ cookie: true }));
 app.use(function(req, res, next){
     res.header("Content-Security-Policy", "default-src 'self';script-src 'self';object-src 'none';img-src 'self';media-src 'self';frame-src 'none';font-src 'self' data:;connect-src 'self';style-src 'self'");
     next();

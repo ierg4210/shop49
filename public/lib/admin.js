@@ -43,12 +43,13 @@ function onSubmitHandler(e) {
 function onFormSubmitHandler(e) {
 	// Disable default form submission to prevent page load
 	e.preventDefault();
-
-	// Reference: http://visionmedia.github.io/superagent/#post-/%20put%20requests
+	var f=new FormData(this);
+	var formTHis = this;
+// Reference: http://visionmedia.github.io/superagent/#post-/%20put%20requests
 	superagent
 		.post(this.getAttribute('action'))
 		.send(new FormData(this))
-		.set(null)
+		.type(null)
 		.end(function (res) {
 			if (res.error) {
 				if (res.body.inputErrors) {
