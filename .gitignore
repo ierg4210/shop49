@@ -1,4 +1,4 @@
 local-dev-env/*
 node_modules/*
 public/images/products/*
-./shop49.config.js
+shop49.config.js

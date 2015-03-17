@@ -9,6 +9,7 @@ var pool = anyDB.createPool(config.dbURI, {
 var inputPattern = {
 	name: /^[\w- ']+$/,
 };
+
 var router = express.Router();
 
 router.get('/', function (req, res) {
@@ -28,13 +29,12 @@ router.get('/', function (req, res) {
 			layout: 'admin',
 			title: 'IERG4210 Shop49 Admin',
 			cat: categories.rows,
-			prod: products.rows
+			prod: products.rows,
+			csrfToken: req.csrfToken() 
 			});
 		});
 	});
 });
-
-// URL expected: http://hostname/admin/api/cat/add
 router.get('/api/cat/:catid', function (req, res) {
 
 		req.checkParams('catid', 'Invalid Category ID')

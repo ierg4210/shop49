@@ -40,6 +40,33 @@ function onSubmitHandler(e) {
 }
 
 
+function onFormSubmitHandler(e) {
+	// Disable default form submission to prevent page load
+	e.preventDefault();
+
+	// Reference: http://visionmedia.github.io/superagent/#post-/%20put%20requests
+	superagent
+		.post(this.getAttribute('action'))
+		.send(new FormData(this))
+		.set(null)
+		.end(function (res) {
+			if (res.error) {
+				if (res.body.inputErrors) {
+					res.body.inputErrors.forEach(function(input){
+						alert(input.msg);
+					});
+				}
+				return console.error(res.body.inputError || res.error);
+			}
+
+			alert('OK');
+			// refresh the page with latest results
+			location.reload();
+		});
+}
+
+
+
 
 function onCatEditHandler(e){
 		superagent
@@ -87,8 +114,8 @@ function onPIdEditHandler(e){
 document.querySelector('#categoryNewPanel form').addEventListener('submit', onSubmitHandler);
 document.querySelector('#categoryEditPanel form').addEventListener('submit', onSubmitHandler);
 document.querySelector('#categoryRemovePanel form').addEventListener('submit', onSubmitHandler);
-//document.querySelector('#productNewPanel form').addEventListener('submit', onSubmitHandler);
-//document.querySelector('#productEditPanel form').addEventListener('submit', onSubmitHandler);
+document.querySelector('#productNewPanel form').addEventListener('submit', onFormSubmitHandler);
+document.querySelector('#productEditPanel form').addEventListener('submit', onFormSubmitHandler);
 document.querySelector('#productRemovePanel form').addEventListener('submit', onSubmitHandler);
 document.getElementById('catEditCatId').addEventListener('change', onCatEditHandler);
 document.getElementById('prodEditPId').addEventListener('change', onPIdEditHandler);

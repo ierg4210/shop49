@@ -5,6 +5,8 @@ var bodyParser = require('body-parser');
 var expressValidator = require('express-validator');
 var multer  = require('multer');
 var exphbs  = require('express-secure-handlebars');
+var csrf = require('csurf');
+var cookieParser = require('cookie-parser');
 var mainRouter = require('./routes/main.js');
 var adminRouter = require('./routes/admin.js');
 var apiRouter = require('./routes/api.js');
@@ -17,6 +19,8 @@ app.use(session({
 })); 
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(expressValidator());
+app.use(cookieParser());
+app.use(csrf({ cookie: true }));
 app.use(multer({ dest: './public/images/products/'}));
 app.use(function(req, res, next){
     res.header("Content-Security-Policy", "default-src 'self';script-src 'self';object-src 'none';img-src 'self';media-src 'self';frame-src 'none';font-src 'self' data:;connect-src 'self';style-src 'self'");

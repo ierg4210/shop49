@@ -5,6 +5,7 @@
 	<fieldset id="loginForm">
 		<legend>Shop49 Login</legend>
 		<form method="POST" action="/admin/login">
+			 <input type="hidden" name="_csrf" value="{{csrfToken}}">
 			<label for="userName">Username</label>
 			<div><input id="userName" type="text" name="username" required pattern="^[\w- ']+$" /></div>
 			<label for="password">Password</label>

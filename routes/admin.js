@@ -18,7 +18,6 @@ function hmacPassword(password)
 	hmac.update(password);
 	return hmac.digest('base64');
 }
-
 var router = express.Router();
 
 
@@ -27,6 +26,7 @@ router.get('/login', function (req, res) {
 	res.render('login', {
 			layout: 'admin',
 			title: 'IERG4210 Shop49 Admin',
+			csrfToken:req.csrfToken() 
 			});
 });
 

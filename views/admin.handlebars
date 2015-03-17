@@ -5,6 +5,7 @@
 	<fieldset id="categoryNewPanel">
 		<legend>New Category</legend>
 		<form method="POST" action="/admin/api/cat/add">
+			  <input type="hidden" name="_csrf" value="{{csrfToken}}">
 			<label for="catNewName">Name *</label>
 			<div><input id="catNewName" type="text" name="name" required pattern="^[\w- ']+$" /></div>
 			<input type="submit" value="Submit" />
@@ -14,6 +15,7 @@
 	<fieldset id="categoryEditPanel">
 		<legend>Edit a Category</legend>
 		<form method="POST" action="/admin/api/cat/edit">
+		  <input type="hidden" name="_csrf" value="{{csrfToken}}">
 			<label for="catEditCatId">Category *</label>
 			<select id="catEditCatId" name="catid" required>
 				<option value="">Please select a category</option>
@@ -31,6 +33,7 @@
 	<fieldset id="categoryRemovePanel">
 		<legend>Remove a Category</legend>
 		<form method="POST" action="/admin/api/cat/delete">
+		  <input type="hidden" name="_csrf" value="{{csrfToken}}">
 			<label for="catRemoveCatId">Category *</label>
 			<select id="catRemoveCatId" name="catid" required>
 				<option value="">Please select a category</option>
@@ -48,6 +51,7 @@
 	<fieldset id="productNewPanel">
 		<legend>New Product</legend>
 		<form method="POST" action="/admin/api/prod/add" enctype="multipart/form-data">
+		 <input type="hidden" name="_csrf" value="{{csrfToken}}">
 			<label for="prodNewCatId">Category *</label>
 			<div>
 				<select id="catNewPCatId" name="catid" required>
@@ -78,6 +82,7 @@
 		<fieldset id="productEditPanel">
 			<legend>Edit a Product</legend>
 			<form method="POST" action="/admin/api/prod/edit" enctype="multipart/form-data">
+			  <input type="hidden" name="_csrf" value="{{csrfToken}}">
 				<label for="prodEditPId">Product *</label>
 				<div>
 					<select id="prodEditPId" name="pid" required>
@@ -115,7 +120,6 @@
 
 			<input type="submit" value="Submit" />
 		</form>
-			</form>
 		</fieldset>
 	</section>
 	
@@ -123,7 +127,7 @@
 		<fieldset id="productRemovePanel">
 			<legend>Remove a Product</legend>
 			<form method="POST" action="/admin/api/prod/remove">
-				<label for="prodRemovePId">Product *</label>
+			  <input type="hidden" name="_csrf" value="{{csrfToken}}"><label for="prodRemovePId">Product *</label>
 				<div>
 					<select id="prodRemovePId" name="pid" required>
 						<option value="">Please select a product</option>
