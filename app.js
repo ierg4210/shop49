@@ -28,6 +28,15 @@ app.use(function(req, res, next){
 });
 app.use(express.static(__dirname+'/public'));
 app.use('/',mainRouter);
+app.use('/admin', function(req, res, next) {
+	var schema = req.headers['x-forwarded-proto'];
+	if (schema === 'https') {
+		next();
+	}
+	else {
+		res.redirect('https://' + req.headers.host + req.url + '/admin');
+	}
+});
 app.use('/admin',adminRouter);
 app.use('/admin',apiRouter);
 
