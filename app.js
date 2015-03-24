@@ -34,7 +34,7 @@ app.use('/admin', function(req, res, next) {
 		next();
 	}
 	else {
-		res.redirect('https://' + req.headers.host + req.url + '/admin');
+		res.redirect('https://' + req.headers.host + '/admin' + req.url );
 	}
 });
 app.use('/admin',adminRouter);
