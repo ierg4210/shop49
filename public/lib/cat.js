@@ -13,7 +13,7 @@
 		    	content+="<li><span class=\cart_name\>"+item.name+"</span> <input class=\"cart_qualtity\" id=\""+ item.pid +"\" value=\""+item.quantity+"\" type=\"number\"> <span class=\"cart_price\">@$"+item.price+"</span></li>"
 		    	total+=item.price*item.quantity;
 		    })
-			content="<ul><span class=\"cart_title\">Shopping List Total:$"+total+"</span>"+content+"<button>Submit</button>";
+			content="<ul><span class=\"cart_title\">Shopping List Total:$"+total+"</span>"+content+"<button value='submit'>Submit</button>";
 		    $('#cart_index > ul').html(content);
 		    $('#cart_summary').html("Shopping List $"+total);
 	   	};
@@ -64,6 +64,12 @@
 	    	
 	}
 	var cart = new shopCart();
+	$('.addCart').bind('click', function(e) {
+		console.log("wow")
+		
+		 var id = $(this).attr('id');
+         cart.addItem(id, 1);
+	})
 	$('.addCart').bind('click', function(e) {
 		console.log("wow")
 		

@@ -70,8 +70,26 @@ router.get('/api/prod/:pid', function (req, res) {
 	);
 
 });
-router.get('/checkout', function (req,res) {
+router.get('/account/login/checkout', function (req,res) {
 
+	if(req.session){
+		paypal.payment.create(create_payment_json,
+			function(error,payment){
+				if (error){
+
+				} else {
+					var link=payment.links;
+					for (var i=0;i<link.length;i++){
+						if(link[i].rel === 'approval_url'){
+							res.redirect(link[i].href)
+						}
+					}
+				}
+			})
+	}
+})
+router.post('/checkout', function (req,res) {
+	console.log("checkout")
 	if(req.session){
 		paypal.payment.create(create_payment_json,
 			function(error,payment){
@@ -147,7 +165,8 @@ router.get('/cat/:catid', function (req, res) {
 			cat: categories.rows,
 			catid: catid,
 			name: name,
-			prod: products.rows
+			prod: products.rows,
+			csrfToken: req.csrfToken() 
 			});
 		});
 	});
@@ -167,14 +186,25 @@ router.get('/product/:pid', function (req, res) {
 				res.status(500).end();
 				return;
 			}
+			var catid="";
+			var catName="";
+			var prodName="";
+			if (product.rows[0]){
+				catid=product.rows[0].catid;
+				prodName=product.rows[0].name;
+			}
 
+			if (categories.rows[0]){
+				catName=categories.rows[0].name;
+			}
 			res.render('product', {
 			title: 'IERG4210 Shop49',
 			cat: categories.rows,
 			prod: product.rows,
-			catid:product.rows[0].catid,
-			name: categories.rows[0].name,
-			prodname: product.rows[0].name
+			catid:catid,
+			name: catName,
+			prodname: prodName,
+			csrfToken: req.csrfToken() 
 			});
 		});
 	});
