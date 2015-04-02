@@ -1,8 +1,7 @@
-$(document).ready(function(){
+
 	var shopCart = function(){
 		var items=[];
 		var total=0;
-
 		var update = function(){
 			if(localStorage.getItem('items')){
 		        items = JSON.parse(localStorage.getItem('items'));
@@ -29,7 +28,8 @@ $(document).ready(function(){
 	    		}
 	    	})
 	    	if (exist==false){
-	    		$.get('/prod/'+pid, function(data){
+	    		$.get('/api/prod/'+pid, function(data){
+	    			console.log("add")
 	    			items.push({pid:pid, quantity:quantity, name:data.name, price:data.price});
 	    			localStorage.setItem('items', JSON.stringify(items));
 		   			update();
@@ -65,6 +65,8 @@ $(document).ready(function(){
 	}
 	var cart = new shopCart();
 	$('.addCart').bind('click', function(e) {
+		console.log("wow")
+		
 		 var id = $(this).attr('id');
          cart.addItem(id, 1);
 	})
@@ -73,4 +75,3 @@ $(document).ready(function(){
          cart.editItem(id, $(this).val());
      });
 	
-})
