@@ -47,7 +47,8 @@ router.post('/login', function (req, res) {
 			console.error(error);
 		return res.status(500).json({'dbError': 'check server log'}).end();
 		}
-		if (result.rowCount===0)return res.status(400).json({'loginError': 'Invalid Credentials'});
+		if (result.rowCount===0)return r
+			es.status(400).json({'loginError': 'Invalid Credentials'});
 		req.session.regenerate(function(err) {
 			req.session.username=req.body.username;
 			req.session.admin=result.rows[0].admin;

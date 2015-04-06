@@ -7,14 +7,16 @@
 		        items = JSON.parse(localStorage.getItem('items'));
 		    }
 		    $('#cart_index > ul').html('');
-		    content="";
-		    total=0;
+		    var content="";
+		    var total=0;
 		    items.forEach(function(item){
-		    	content+="<li><span class=\cart_name\>"+item.name+"</span> <input class=\"cart_qualtity\" id=\""+ item.pid +"\" value=\""+item.quantity+"\" type=\"number\"> <span class=\"cart_price\">@$"+item.price+"</span></li>"
+		    	content+="<li><span class=\"cart_name\">"+item.name+"</span> <input type=\"hidden\" name=\"pid[]\" value=\""+item.pid+"\"/> <input class=\"cart_qualtity\" name=\"quantity[]\" id=\""+ item.pid +"\" value=\""+item.quantity+"\" type=\"number\"> <span class=\"cart_price\">@$"+item.price+"</span></li>"
 		    	total+=item.price*item.quantity;
 		    })
-			content="<ul><span class=\"cart_title\">Shopping List Total:$"+total+"</span>"+content+"<button value='submit'>Submit</button>";
-		    $('#cart_index > ul').html(content);
+			var contentSum="<ul><span class=\"cart_title\">Shopping List Total:$"+total+"</span>"+content+"<button value='submit'>Submit</button>";
+		    
+		    console.log(contentSum)
+		    $('#cart_index > form > ul').html(contentSum);
 		    $('#cart_summary').html("Shopping List $"+total);
 	   	};
 	   	update();
@@ -70,12 +72,7 @@
 		 var id = $(this).attr('id');
          cart.addItem(id, 1);
 	})
-	$('.addCart').bind('click', function(e) {
-		console.log("wow")
-		
-		 var id = $(this).attr('id');
-         cart.addItem(id, 1);
-	})
+
 	$('body').on('change keyup', '.cart_qualtity', function(){
          var id = $(this).attr('id');
          cart.editItem(id, $(this).val());

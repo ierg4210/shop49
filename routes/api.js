@@ -9,7 +9,13 @@ var pool = anyDB.createPool(config.dbURI, {
 var inputPattern = {
 	name: /^[\w- ']+$/,
 };
-
+function hmacPassword(password)
+{
+	var salt = 'CtbX5BQFGPR6NccN';
+	var hmac=crypto.createHmac('sha256', salt);
+	hmac.update(password);
+	return hmac.digest('base64');
+}
 var router = express.Router();
 
 router.get('/', function (req, res) {
