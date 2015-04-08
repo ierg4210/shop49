@@ -1,8 +1,9 @@
 <h1>Welcome back! {{username}}!</h1>
-{{#each payment}}
 <article id="payment_list">
-<section>
+{{#each payment}}
+<a href="/account/payment/{{payid}}">
+<section id="{{paymentId}}">
 <span>{{paymentId}}</span><span>{{state}}</span><span>{{dateCreated}}</span>
-</section>
-</article>
+</section></a>
 {{/each}}
+</article>
