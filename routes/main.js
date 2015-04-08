@@ -456,7 +456,7 @@ router.post('/account/login/:action', function (req, res) {
 	}); 
 });
 
-router.get('/account/checout', function (req,res) {
+router.get('/account/checkout', function (req,res) {
 	if(req.session.username){
 		res.render('autocheckout');
 	}else{
