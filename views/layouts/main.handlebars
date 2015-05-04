@@ -9,6 +9,7 @@
 <header>
 
 </header>
+<section><a href="/account">account</a></section>
 <section id="cart_index"><span id="cart_summary">Shopping List $2</span>
 <form id="card_form" method="POST" action="/checkout" >
 <ul>
@@ -24,7 +25,7 @@
 </section>
 <section id="category_list"><ul>
 	{{#each cat}}
-				<a href="/cat/{{catid}}"><li>{{name}}</li></a>
+				<a href="/cat/{{catid}}-{{name}}"><li>{{name}}</li></a>
 	{{/each}}
 </ul></section>
 

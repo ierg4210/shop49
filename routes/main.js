@@ -56,12 +56,13 @@ router.get('/', function (req,res) {
 			res.status(500).end();
 			return;
 		}
+		if (categories.rows){
 		var catid = categories.rows[0].catid;
-		res.redirect('/cat/'+catid);
+		var name = categories.rows[0].name;}
+		res.redirect('/cat/'+catid+'-'+name);
 	});
 })
 router.get('/api/cat/:catid', function (req, res) {
-
 		req.checkParams('catid', 'Invalid Category ID')
 		.notEmpty()
 		.isInt();
@@ -85,7 +86,6 @@ router.get('/api/cat/:catid', function (req, res) {
 
 });
 router.get('/api/prod/:pid', function (req, res) {
-
 		req.checkParams('pid', 'Invalid Category ID')
 		.notEmpty()
 		.isInt();
@@ -111,6 +111,7 @@ router.get('/api/prod/:pid', function (req, res) {
 
 
 router.get('/cat/:catid', function (req, res) {
+	req.params.catid=req.params.catid.split('-')[0]
 	var catid = req.params.catid;
 	var name="";
 	pool.query('SELECT * FROM categories', function (error, categories) {
@@ -145,6 +146,7 @@ router.get('/cat/:catid', function (req, res) {
 });
 
 router.get('/product/:pid', function (req, res) {
+	req.params.pid=req.params.pid.split('-')[0]
 	var pid = req.params.pid;
 	pool.query('SELECT * FROM categories', function (error, categories) {
 		if (error) {
@@ -229,8 +231,9 @@ router.post('/checkout', function (req,res) {
 				  paymentJson.transactions[0].amount.total=total;
 				   paypal.payment.create(paymentJson,
 					function(error,payment){
-						if (error){state
+						if (error){
 							console.log(error.response.details)
+							return res.status(400).json({'Error':'error'}).end();
 
 						} else {
 							pool.query('INSERT INTO payment (userid, paymentId, state, dateCreated) SELECT uid, ?, ?, ? FROM users WHERE username=?',[payment.id,payment.state,payment.update_time,req.session.username],
@@ -458,9 +461,63 @@ router.post('/account/login/:action', function (req, res) {
 
 router.get('/account/checkout', function (req,res) {
 	if(req.session.username){
-		res.render('autocheckout');
+		res.render('autocheckout',{csrfToken: req.csrfToken() });
 	}else{
 		res.redirect('/account/login');
+	}
+});
+
+router.get('/password', function (req, res) {
+	if(req.session.username){
+		res.render('password',{csrfToken: req.csrfToken() });
+	}else{
+		res.redirect('/account/login');
+	}
+});
+
+
+router.post('/password', function (req, res) {
+	if(req.session.username){
+		
+	req.checkBody('oldpassword', 'Invalid old password')
+		.isLength(1, 512)
+
+	req.checkBody('newpassword', 'Invalid new password')
+		.isLength(1, 512)
+
+	req.checkBody('newpassword2', 'Invalid new password')
+		.isLength(1, 512)
+
+	var errors = req.validationErrors();
+	if (errors) {
+		return res.status(400).json({'inputError': errors}).end();	
+	}
+	if (req.body.newpassword!=req.body.newpassword2){
+		return res.status(400).json({'Password Mismatch':"error"}).end();
+	}
+	pool.query('SELECT admin,uid FROM users WHERE username = ? AND saltedPassword = ?',[req.session.username,hmacPassword(req.body.oldpassword)],
+	function (error, result) {
+		if (error) {
+			console.error(error);
+			return res.status(500).json({'dbError': 'check server log'}).end();
+		}
+		
+		if (result.rowCount===0){
+			return res.status(400).json({'loginError': 'Invalid Old Password'});
+		}else{
+
+			pool.query('UPDATE users SET saltedPassword = ? WHERE uid = ?',[hmacPassword(req.body.newpassword),result.rows[0].uid],
+			function (error, result2) {
+				req.session.destroy(function(err) {
+
+						return res.status(200).json({'Sucess': 'Password Changed'});
+				});
+			}); 
+		}
+	}); 
+	}
+	else{
+		res.redirect('/account');
 	}
 });
 module.exports = router;
