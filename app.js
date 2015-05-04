@@ -30,7 +30,7 @@ app.use(express.static(__dirname+'/public'));
 app.use('/',mainRouter);
 app.use('/admin', function(req, res, next) {
 	var schema = req.headers['x-forwarded-proto'];
-	if (true || schema === 'https') {
+	if (schema === 'https') {
 		next();
 	}
 	else {
