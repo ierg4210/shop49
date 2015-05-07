@@ -1,0 +1,19 @@
+- Nikto v2.1.6
+---------------------------------------------------------------------------
++ Target IP:          54.169.242.136
++ Target Hostname:    store49.ierg4210.org
++ Target Port:        80
++ Start Time:         2015-05-07 17:59:17 (GMT8)
+---------------------------------------------------------------------------
++ Server: nginx/1.6.2
++ Cookie _csrf created without the httponly flag
++ Uncommon header 'x-download-options' found, with contents: noopen
++ Root page / redirects to: /cat/2-Carz
++ No CGI Directories found (use '-C all' to force check all possible dirs)
++ Retrieved x-powered-by header: Express
++ Server leaks inodes via ETags, header found with file /, fields: 0xW/8 0x73450293 
++ Allowed HTTP Methods: GET, HEAD 
++ 7377 requests: 0 error(s) and 5 item(s) reported on remote host
++ End Time:           2015-05-07 18:06:31 (GMT8) (434 seconds)
+---------------------------------------------------------------------------
++ 1 host(s) tested
