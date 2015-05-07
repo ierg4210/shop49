@@ -1,10 +1,11 @@
 <h1>Welcome back! {{username}}!</h1>
-<a href="/password">Change Password</a>
+<a href="/password">Change Password</a><br>
+<a href="/logout">Logout</a><br>
 <article id="payment_list">
 {{#each payment}}
 <a href="/account/payment/{{payid}}">
 <section id="{{paymentId}}">
-<span>{{paymentId}}</span><span>{{state}}</span><span>{{dateCreated}}</span>
+<span>{{paymentId}}</span>&nbsp;<span>{{state}}</span>&nbsp;<span>{{dateCreated}}</span>
 </section></a>
 {{/each}}
 </article>

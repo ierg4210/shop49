@@ -467,6 +467,7 @@ router.get('/account/checkout', function (req,res) {
 	}
 });
 
+
 router.get('/password', function (req, res) {
 	if(req.session.username){
 		res.render('password',{csrfToken: req.csrfToken() });
@@ -517,6 +518,17 @@ router.post('/password', function (req, res) {
 	}); 
 	}
 	else{
+		res.redirect('/account');
+	}
+});
+
+router.get('/logout', function (req,res) {
+	if(req.session.username){
+			req.session.destroy(function(err) {
+
+						return res.status(200).json({'Sucess': 'logged out'});
+			});
+	}else{
 		res.redirect('/account');
 	}
 });

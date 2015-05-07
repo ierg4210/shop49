@@ -12,6 +12,7 @@ var adminRouter = require('./routes/admin.js');
 var apiRouter = require('./routes/api.js');
 
 var xFrameOptions = require('x-frame-options')
+var helmet = require('helmet');
  
 app.engine('handlebars', exphbs({defaultLayout: 'main'}));
 app.set('view engine', 'handlebars');
@@ -24,6 +25,7 @@ app.use(cookieParser());
 app.use(multer({ dest: './public/images/products/'}));
 app.use(csrf({ cookie: true }));
 app.use(xFrameOptions());
+app.use(helmet());
 app.use(function(req, res, next){
     res.header("Content-Security-Policy", "default-src 'self';script-src 'self';object-src 'none';img-src 'self';media-src 'self';frame-src 'none';font-src 'self' data:;connect-src 'self';style-src 'self'");
     next();
