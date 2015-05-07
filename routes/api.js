@@ -301,7 +301,7 @@ router.post('/api/prod/edit', function (req, res) {
 					value: req.body.pid
 				}]}).end();	
 			}
-			if (req.files){
+			if (req.files.file){
 				oldPath=req.files.file.path;
 				var pid= req.body.pid;
 	   			var newPath=oldPath.replace(/^(.*\/).*(\..*)$/, function(a,b,c) {
