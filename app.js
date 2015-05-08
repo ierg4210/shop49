@@ -32,8 +32,7 @@ app.use(function(req, res, next){
     next();
 });
 app.use(express.static(__dirname+'/public'));
-app.use('/',mainRouter);
-app.use('/admin', function(req, res, next) {
+app.use('/', function(req, res, next) {
 	var schema = req.headers['x-forwarded-proto'];
 	if (schema === 'https') {
 		next();
@@ -42,6 +41,7 @@ app.use('/admin', function(req, res, next) {
 		res.redirect('https://' + req.headers.host + '/admin' + req.url );
 	}
 });
+app.use('/',mainRouter);
 app.use('/admin',adminRouter);
 app.use('/admin',apiRouter);
 
